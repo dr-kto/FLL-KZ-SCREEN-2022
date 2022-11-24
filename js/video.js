@@ -25,14 +25,16 @@ async function getData() {
             .then(rep => {
                 data = JSON.parse(rep.substr(47).slice(0, -2));
             });
-        console.log(data.table.rows)
+        console.log(data.table.rows[0].c[2].v)
         console.log(data.table)
+        console.log(data?.table.cols[1].label.replace(new RegExp("^([^\sT]+) ","gm"), ""))
+        console.log(data?.table.cols[2].label.replace(new RegExp(".+ ","gm"), ""))
 
-        document.querySelector('.nleft').innerHTML = data?.table.rows[1].c[1]?.v
-        document.querySelector('.nright').innerHTML = data?.table.rows[8].c[1]?.v
-        document.querySelector('.sleft').innerHTML = data?.table.rows[8].c[7]?.v
-        document.querySelector('.sright').innerHTML = data?.table.rows[8].c[2]?.v
-        document.querySelector('.info1').innerHTML = data?.table.rows[3].c[2]?.v
+        document.querySelector('.nleft').innerHTML = data?.table.cols[2].label.replace(new RegExp(".+ ","gm"), "")
+        document.querySelector('.nright').innerHTML = data?.table.cols[3].label.replace(new RegExp(".+ ","gm"), "")
+        document.querySelector('.sleft').innerHTML = data?.table.rows[0].c[2]?.v
+        document.querySelector('.sright').innerHTML = data?.table.rows[0].c[3]?.v
+        document.querySelector('.info1').innerHTML = data?.table.cols[1].label.replace(new RegExp("^([^\sT]+) ","gm"), "")
 
         getData()
     } catch (error) {
@@ -45,8 +47,8 @@ async function getData() {
 getData()
 
 function start() {
-    let minute = 2;
-    let second = 30;
+    let minute = 0;
+    let second = 3;
     let operation = 1
     document.querySelector(".timer").style.fontSize = `4vw`
     countdown(minute, second, operation)
@@ -123,6 +125,109 @@ window.addEventListener('keypress', function (e) {
         this.document.querySelector('.timer').classList.toggle('score_anima')
     }
     if (e.key === 'b') {
+
+    }
+    if (e.code === 'KeyU') 
+    {
+        document.querySelector(".uzb").classList.toggle("dNone")
+        mus = new  Audio('Uzbekistan.mp3')
+        mus.play()
+        
+
+    }
+    if (e.code === "KeyP")
+    {
+        mus.pause()
+    }
+    if (e.code === 'KeyG') 
+    {
+
+        var mediaVideo = document.querySelector(".gen");
+        mediaVideo.play()
+        // if (mediaVideo.paused)
+        // {
+        //     mediaVideo.play()
+        // }
+        // else{
+        //     mediaVideo.pause()
+        // }
+        document.querySelector(".gen").classList.toggle("dNone")
+        
+    }
+    if (e.code === 'KeyK') 
+    {
+        document.querySelector(".kaz").classList.toggle("dNone")
+        mus = new  Audio('Kazakhstan.mp3')
+        mus.play()
+    }
+    if (e.code === 'KeyM')
+    {
+        document.querySelector(".container").classList.toggle("dNone")
+    }
+    if(e.code === "KeyQ")
+    {
+        document.querySelector('.sleft').classList.toggle("dNone")
+        document.querySelector('.sright').classList.toggle("dNone")
+        document.querySelector('.nleft').classList.toggle("dNone")
+        document.querySelector('.nright').classList.toggle("dNone")
+    }
+    if (e.code === 'KeyC') 
+    {
+                    /*
+        *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+        *
+        *  Use of this source code is governed by a BSD-style license
+        *  that can be found in the LICENSE file in the root of the source
+        *  tree.
+        */
+        'use strict';
+
+        // Put variables in global scope to make them available to the browser console.
+        const constraints = window.constraints = {
+        audio: false,
+        video: true
+        };
+
+        function handleSuccess(stream) {
+        const video = document.querySelector('.camera');
+        const videoTracks = stream.getVideoTracks();
+        console.log('Got stream with constraints:', constraints);
+        console.log(`Using video device: ${videoTracks[0].label}`);
+        window.stream = stream; // make variable available to browser console
+        video.srcObject = stream;
+        }
+
+        function handleError(error) {
+        if (error.name === 'OverconstrainedError') {
+            const v = constraints.video;
+            errorMsg(`The resolution ${v.width.exact}x${v.height.exact} px is not supported by your device.`);
+        } else if (error.name === 'NotAllowedError') {
+            errorMsg('Permissions have not been granted to use your camera and ' +
+            'microphone, you need to allow the page access to your devices in ' +
+            'order for the demo to work.');
+        }
+        errorMsg(`getUserMedia error: ${error.name}`, error);
+        }
+
+        function errorMsg(msg, error) {
+        const errorElement = document.querySelector('#errorMsg');
+        errorElement.innerHTML += `<p>${msg}</p>`;
+        if (typeof error !== 'undefined') {
+            console.error(error);
+        }
+        }
+
+        async function init(e) {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+            handleSuccess(stream);
+            e.target.disabled = true;
+        } catch (e) {
+            handleError(e);
+        }
+        }
+        init();
+        document.querySelector('#showVideo').addEventListener('click', e => init(e));
 
     }
 
