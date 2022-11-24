@@ -164,12 +164,16 @@ window.addEventListener('keypress', function (e) {
     {
         document.querySelector(".container").classList.toggle("dNone")
     }
-    if(e.code === "KeyQ")
+    if(e.code === "KeyN")
     {
         document.querySelector('.sleft').classList.toggle("dNone")
         document.querySelector('.sright').classList.toggle("dNone")
         document.querySelector('.nleft').classList.toggle("dNone")
         document.querySelector('.nright').classList.toggle("dNone")
+    }
+    if(e.code === "KeyQ")
+    {
+        document.querySelector('.qr').classList.toggle("dNone")
     }
     if (e.code === 'KeyC') 
     {

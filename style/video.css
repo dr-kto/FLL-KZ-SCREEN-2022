@@ -152,10 +152,10 @@
     }
     .logo img {
         object-fit: contain;
-        max-width: 60%;
+        max-width: 90%;
     }
     .logo {
-        background-color: whitesmoke;
+        background-color: white;
         margin-bottom: .7vw;
         border-radius: 3vw 3vw 0 0;
     
@@ -196,11 +196,10 @@
         position: absolute;
         right: 5%;
         top: 5%;
-        width: 14vw;
-        height: 14vw;
+        width: 10vw;
     
         padding: 0.5vw;
-        border-radius: 5vw;
+        border-radius: 3vw;
         /* background-color: #ffffff; */
         overflow: hidden;
     }
